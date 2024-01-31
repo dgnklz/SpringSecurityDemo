@@ -1,14 +1,10 @@
-package com.dgnklz.springsecurity.config;
+package com.dgnklz.springsecurity.core.configuration;
 
 import com.dgnklz.springsecurity.entity.UserRole;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -19,7 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -30,7 +26,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final TokenFilter filter;
     private final UserDetailsService service;
-    //private final DaoAuthenticationProvider provider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception {
@@ -38,40 +33,30 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request.requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/admin").hasAnyAuthority(UserRole.ADMIN.name())
                 .requestMatchers("/user").hasAnyAuthority(UserRole.USER.name())
-                .anyRequest().authenticated());
+                .anyRequest().authenticated())
+                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider()).addFilterBefore(
+                        filter, UsernamePasswordAuthenticationFilter.class
+                );
 
-        return null;
-    }
-
-    /*public SecurityConfig(TokenFilter filter, UserDetailsService service, DaoAuthenticationProvider provider) {
-        this.filter = filter;
-        this.service = service;
-        this.provider = provider;
+        return http.build();
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(service);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
-        httpSecurity.headers().frameOptions().disable();
-        httpSecurity.cors().and().csrf().disable();
-
-        return null;
-    }*/
 }
