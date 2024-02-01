@@ -1,4 +1,4 @@
-package com.dgnklz.springsecurity.business.dto;
+package com.dgnklz.springsecurity.core.Message;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-    private String accessToken;
+public class ResponseMessage {
+    private String message;
 }

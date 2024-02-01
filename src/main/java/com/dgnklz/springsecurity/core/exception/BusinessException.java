@@ -1,4 +1,4 @@
-package com.dgnklz.springsecurity.exception;
+package com.dgnklz.springsecurity.core.exception;
 
 public class BusinessException extends RuntimeException {
     public BusinessException(String message) {
