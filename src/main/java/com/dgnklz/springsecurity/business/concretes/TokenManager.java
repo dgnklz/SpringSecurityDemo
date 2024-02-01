@@ -64,13 +64,10 @@ public class TokenManager implements TokenService {
             throw new TokenException("Token is unsupported");
         } catch (IllegalArgumentException e) {
             throw new TokenException("Token claims string is empty");
-        } catch (SignatureException e) {
-            throw new TokenException("There is an error with the signature of your token ");
         }
     }
 
     private Key key() {
-        //return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
         return Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 }

@@ -1,4 +1,4 @@
-package com.dgnklz.springsecurity.model.payload.response.security;
+package com.dgnklz.springsecurity.model.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

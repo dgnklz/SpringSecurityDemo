@@ -1,15 +1,16 @@
-package com.dgnklz.springsecurity.business.dto;
+package com.dgnklz.springsecurity.model.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignInResponse {
+public class SigninResponse {
     private String token;
-    private String refreshToken;
 }

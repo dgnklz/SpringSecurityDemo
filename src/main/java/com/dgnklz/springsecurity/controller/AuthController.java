@@ -2,22 +2,16 @@ package com.dgnklz.springsecurity.controller;
 
 import com.dgnklz.springsecurity.business.abstracts.TokenService;
 import com.dgnklz.springsecurity.core.Message.ResponseMessage;
-import com.dgnklz.springsecurity.model.UserDetailsImpl;
 import com.dgnklz.springsecurity.model.entity.User;
 import com.dgnklz.springsecurity.model.entity.UserRole;
-import com.dgnklz.springsecurity.model.payload.request.security.SigninRequest;
-import com.dgnklz.springsecurity.model.payload.request.security.SignupRequest;
-import com.dgnklz.springsecurity.model.payload.response.security.SigninResponse;
+import com.dgnklz.springsecurity.model.payload.request.SigninRequest;
+import com.dgnklz.springsecurity.model.payload.request.SignupRequest;
+import com.dgnklz.springsecurity.model.payload.response.SigninResponse;
 import com.dgnklz.springsecurity.repository.UserRepository;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
