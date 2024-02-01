@@ -11,9 +11,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
+<<<<<<<< HEAD:src/main/java/com/dgnklz/springsecurity/model/payload/request/security/SigninRequest.java
 @NoArgsConstructor
 @AllArgsConstructor
 public class SigninRequest {
+========
+public class SignInRequest {
+>>>>>>>> origin/master:src/main/java/com/dgnklz/springsecurity/business/dto/SignInRequest.java
     @NotBlank(message = "Email is required")
     @Email(regexp = "([A-Za-z0-9-_.]+@[A-Za-z0-9-_]+(?:\\.[A-Za-z0-9]+)+)", message = "Email is not valid")
     @Size(max = 50)
